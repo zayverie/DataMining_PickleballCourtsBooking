@@ -18,15 +18,10 @@ hours_booked INT,
 total_price DECIMAL(10,2)
 );*/
 
-ALTER TABLE Customers
-RENAME COLUMN phone TO contact_num;
-
 ALTER TABLE Customers 
 CHANGE COLUMN phone contact_num VARCHAR(11);
 
 SELECT * FROM Customers;
-
-
 
 INSERT INTO customers(name, contact_num)
 VALUES
