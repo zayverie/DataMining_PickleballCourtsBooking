@@ -1,18 +1,6 @@
 CREATE DATABASE IF NOT EXISTS pickleball_db;
 USE pickleball_courts_booking;
 
-DROP TABLE IF EXISTS Utilities;
-DROP TABLE IF EXISTS Salaries;
-DROP TABLE IF EXISTS Expenses;
-DROP TABLE IF EXISTS Payments;
-DROP TABLE IF EXISTS Equipment_Rentals;
-DROP TABLE IF EXISTS Schedules;
-DROP TABLE IF EXISTS Bookings;
-DROP TABLE IF EXISTS Employees;
-DROP TABLE IF EXISTS Customers;
-DROP TABLE IF EXISTS Courts;
-
-
 CREATE TABLE Courts (
     court_id INT AUTO_INCREMENT PRIMARY KEY,
     court_name VARCHAR(50) NOT NULL,
