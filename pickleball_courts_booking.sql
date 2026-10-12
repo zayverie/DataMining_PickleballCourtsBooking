@@ -5,18 +5,18 @@ CREATE TABLE Courts (
     court_id INT AUTO_INCREMENT PRIMARY KEY,
     court_name VARCHAR(50) NOT NULL,
     hourly_rate DECIMAL(10,2) NOT NULL,
-    is_cleaned BOOLEAN DEFAULT TRUE
+    is_available BOOLEAN DEFAULT TRUE
 );
 
 CREATE TABLE Customers (
     customer_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
+    customer_name VARCHAR(100) NOT NULL,
     contact_number VARCHAR(11) NOT NULL
 );
 
 CREATE TABLE Employees (
     employee_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
+    employee_name VARCHAR(100) NOT NULL,
     employee_type VARCHAR(30) NOT NULL
 );
 
@@ -83,14 +83,14 @@ CREATE TABLE Utilities (
     FOREIGN KEY (expense_id) REFERENCES Expenses(expense_id)
 );
 
-INSERT INTO Courts (court_name, hourly_rate, is_cleaned) VALUES 
+INSERT INTO Courts (court_name, hourly_rate, is_available) VALUES 
 ('Court 1 (Outdoor)', 400.00, TRUE);
 
-INSERT INTO Customers (name, contact_number) VALUES 
+INSERT INTO Customers (customer_name, contact_number) VALUES 
 ('Alyssa Valdez', '09171234567'),
 ('Mika Reyes', '09189876543');
 
-INSERT INTO Employees (name, employee_type) VALUES 
+INSERT INTO Employees (employee_name, employee_type) VALUES 
 ('Juan Dela Cruz', 'Caretaker'),
 ('Maria Clara', 'Front Desk');
 
