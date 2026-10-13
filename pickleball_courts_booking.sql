@@ -11,7 +11,7 @@ CREATE TABLE Courts (
 CREATE TABLE Customers (
     customer_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_name VARCHAR(100) NOT NULL,
-    contact_number VARCHAR(11) NOT NULL
+    contact_number VARCHAR(11)
 );
 
 CREATE TABLE Employees (
