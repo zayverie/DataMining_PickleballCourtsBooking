@@ -1,19 +1,6 @@
 CREATE DATABASE IF NOT EXISTS pickleball_db;
 USE pickleball_courts_booking;
 
--- 1. Drop Child Tables First (tables containing Foreign Keys)
-DROP TABLE IF EXISTS Utilities;
-DROP TABLE IF EXISTS Salaries;
-DROP TABLE IF EXISTS Payments;
-DROP TABLE IF EXISTS Equipment_Rentals;
-DROP TABLE IF EXISTS Schedules;
-DROP TABLE IF EXISTS Bookings;  -- Drops Bookings FIRST so Courts is freed!
-
--- 2. Drop Parent Tables Last
-DROP TABLE IF EXISTS Expenses;
-DROP TABLE IF EXISTS Employees;
-DROP TABLE IF EXISTS Customers;
-DROP TABLE IF EXISTS Courts;    -- Now Courts drops smoothly with zero errors!
 CREATE TABLE Courts (
     court_id INT AUTO_INCREMENT PRIMARY KEY,
     court_name VARCHAR(50) NOT NULL,
