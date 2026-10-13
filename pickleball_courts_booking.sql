@@ -1,6 +1,19 @@
 CREATE DATABASE IF NOT EXISTS pickleball_db;
 USE pickleball_courts_booking;
 
+-- 1. Drop Child Tables First (tables containing Foreign Keys)
+DROP TABLE IF EXISTS Utilities;
+DROP TABLE IF EXISTS Salaries;
+DROP TABLE IF EXISTS Payments;
+DROP TABLE IF EXISTS Equipment_Rentals;
+DROP TABLE IF EXISTS Schedules;
+DROP TABLE IF EXISTS Bookings;  -- Drops Bookings FIRST so Courts is freed!
+
+-- 2. Drop Parent Tables Last
+DROP TABLE IF EXISTS Expenses;
+DROP TABLE IF EXISTS Employees;
+DROP TABLE IF EXISTS Customers;
+DROP TABLE IF EXISTS Courts;    -- Now Courts drops smoothly with zero errors!
 CREATE TABLE Courts (
     court_id INT AUTO_INCREMENT PRIMARY KEY,
     court_name VARCHAR(50) NOT NULL,
@@ -54,7 +67,6 @@ CREATE TABLE Payments (
     booking_id INT NOT NULL,
     payment_type VARCHAR(20) NOT NULL,
     amount_paid DECIMAL(10,2) NOT NULL,
-    reference_number VARCHAR(50) NOT NULL,
     payment_date DATETIME NOT NULL,
     FOREIGN KEY (booking_id) REFERENCES Bookings(booking_id)
 );
@@ -63,8 +75,7 @@ CREATE TABLE Expenses (
     expense_id INT AUTO_INCREMENT PRIMARY KEY,
     expense_category VARCHAR(30) NOT NULL,
     amount DECIMAL(10,2) NOT NULL,
-    expense_date DATE NOT NULL,
-    pay_period VARCHAR(20) NOT NULL
+    expense_date DATE NOT NULL
 );
 
 CREATE TABLE Salaries (
@@ -79,7 +90,6 @@ CREATE TABLE Utilities (
     utility_id INT AUTO_INCREMENT PRIMARY KEY,
     expense_id INT NOT NULL UNIQUE,
     utility_type VARCHAR(50) NOT NULL,
-    provider VARCHAR(50) NOT NULL,
     FOREIGN KEY (expense_id) REFERENCES Expenses(expense_id)
 );
 
