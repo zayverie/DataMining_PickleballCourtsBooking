@@ -144,3 +144,55 @@ INSERT INTO Expenses (expense_category, amount, expense_date, pay_period) VALUES
 INSERT INTO Salaries (expense_id, employee_id) VALUES 
 (4, 2);
 
+INSERT INTO Courts (court_name, hourly_rate, is_available) VALUES
+('Court 2 (Indoor VIP)', 600.00, TRUE),
+('Court 3 (Standard)', 400.00, TRUE);
+
+INSERT INTO Customers (customer_name, contact_number) VALUES
+('Hairy Pottah', '09175551234'),
+('Hermayonnaise Stranger', '09184445678'),
+('Run Wizzly', '09193339876');
+
+INSERT INTO Bookings (customer_id, court_id, employee_id, booking_date, court_fee_total) VALUES
+(2, 2, 2, '2026-10-16', 1200.00), 
+(3, 2, 1, '2026-10-17', 600.00),  
+(4, 2, 2, '2026-10-18', 1800.00), 
+(1, 3, 1, '2026-10-19', 800.00),  
+(5, 1, 2, '2026-10-20', 400.00),  
+(3, 2, 2, '2026-10-21', 1200.00); 
+
+INSERT INTO Schedules (booking_id, start_time, end_time) VALUES
+(8,  '2026-10-16 18:00:00', '2026-10-16 20:00:00'),
+(9,  '2026-10-17 09:00:00', '2026-10-17 10:00:00'),
+(10, '2026-10-18 17:00:00', '2026-10-18 20:00:00'),
+(11, '2026-10-19 16:00:00', '2026-10-19 18:00:00'),
+(12, '2026-10-20 08:00:00', '2026-10-20 09:00:00'),
+(13, '2026-10-21 19:00:00', '2026-10-21 21:00:00');
+
+INSERT INTO Equipment_Rentals (booking_id, equipment_id, quantity, total_rental_price) VALUES
+(8,  1, 4, 200.00),
+(8,  2, 1, 30.00),
+(9,  1, 2, 100.00),
+(10, 1, 4, 200.00),
+(10, 2, 2, 60.00),
+(11, 2, 1, 30.00),
+(13, 1, 2, 100.00);
+
+INSERT INTO Payments (booking_id, payment_type, amount_paid, reference_number, payment_date) VALUES
+(8,  'GCash', 1430.00, 'GCASH-11223344', '2026-10-15 14:00:00'),
+(9,  'Cash',   700.00, 'CASH-REC-002',   '2026-10-17 08:50:00'),
+(10, 'GCash', 2060.00, 'GCASH-55667788', '2026-10-16 11:30:00'),
+(11, 'Maya',   830.00, 'MAYA-99887766',  '2026-10-18 20:15:00'),
+(12, 'Cash',   400.00, 'CASH-REC-003',   '2026-10-20 07:55:00'),
+(13, 'GCash', 1300.00, 'GCASH-44332211', '2026-10-20 19:00:00');
+
+SELECT 
+    c.court_name,
+    COUNT(DISTINCT b.booking_id) AS total_bookings,
+    SUM(er.quantity) AS total_equipments_rented,
+    SUM(DISTINCT b.court_fee_total) + SUM(er.total_rental_price) AS total_earned
+FROM Courts c
+LEFT JOIN Bookings b ON c.court_id = b.court_id
+LEFT JOIN Equipment_Rentals er ON b.booking_id = er.booking_id
+GROUP BY c.court_id, c.court_name
+ORDER BY total_earned DESC;
